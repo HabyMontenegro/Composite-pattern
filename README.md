@@ -64,7 +64,3 @@ Dónde mirar primero en el código para entenderlo rápido:
 - `lib/models/course/` y `lib/models/navigation/` para ver la implementación del patrón.
 - `lib/utils/sample_data.dart` para ver ejemplos concretos de árboles.
 - `lib/widgets/*_widget.dart` y `lib/screens/*_screen.dart` para ver cómo se renderiza la estructura.
-
----
-
-Si quieres que actualice el README con un diagrama simple (PlantUML) o con instrucciones paso a paso para la demo en consola, lo añado ahora.

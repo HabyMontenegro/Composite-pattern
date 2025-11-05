@@ -1,0 +1,110 @@
+@startuml Patrones de Diseño
+
+' Estilo del diagrama
+skinparam class {
+    BackgroundColor white
+    ArrowColor #333
+    BorderColor #333
+    FontSize 14
+}
+
+package "Composite Pattern" {
+    interface CourseComponent {
+        + {abstract} String name
+        + {abstract} void display(int depth)
+    }
+
+    class Course {
+        - List<CourseComponent> _modules
+        + String name
+        + void add(CourseComponent)
+        + void display(int depth)
+        + List<CourseComponent> modules
+    }
+
+    class CourseModule {
+        - List<CourseComponent> _children
+        + String name
+        + void add(CourseComponent)
+        + void display(int depth)
+        + List<CourseComponent> children
+    }
+
+    class CourseItem {
+        + String name
+        + void display(int depth)
+    }
+
+    CourseComponent <|.. Course
+    CourseComponent <|.. CourseModule
+    CourseComponent <|.. CourseItem
+    Course o--> "0..*" CourseComponent : contains
+    CourseModule o--> "0..*" CourseComponent : contains
+}
+
+package "Observer Pattern" {
+    interface Subject {
+        + void attach(Observer)
+        + void detach(Observer)
+        + void notify()
+    }
+
+    interface Observer {
+        + String name
+        + void update(String? state)
+    }
+
+    class ConcreteSubject {
+        - List<Observer> _observers
+        - String? state
+        + void attach(Observer)
+        + void detach(Observer)
+        + void notify()
+        + void setState(String)
+    }
+
+    class ConcreteObserver {
+        + String name
+        - String? lastReceived
+        + void update(String? state)
+    }
+
+    Subject <|.. ConcreteSubject
+    Observer <|.. ConcreteObserver
+    ConcreteSubject o--> "0..*" Observer : notifies
+}
+
+package "Factory Method Pattern" {
+    interface Product {
+        + String name
+    }
+
+    interface Factory {
+        + Product createProduct()
+    }
+
+    class ProductA {
+        + String name
+    }
+
+    class ProductB {
+        + String name
+    }
+
+    class FactoryA {
+        + Product createProduct()
+    }
+
+    class FactoryB {
+        + Product createProduct()
+    }
+
+    Product <|.. ProductA
+    Product <|.. ProductB
+    Factory <|.. FactoryA
+    Factory <|.. FactoryB
+    FactoryA ..> ProductA : creates
+    FactoryB ..> ProductB : creates
+}
+
+@enduml

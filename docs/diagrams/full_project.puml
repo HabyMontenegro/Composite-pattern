@@ -1,0 +1,172 @@
+@startuml Proyecto Completo
+
+' Estilo del diagrama
+skinparam {
+    DefaultFontSize 14
+    BackgroundColor white
+    RoundCorner 8
+    
+    package {
+        BackgroundColor #F8F9FA
+        BorderColor #DEE2E6
+    }
+    
+    class {
+        BackgroundColor white
+        BorderColor #333
+        ArrowColor #666
+    }
+}
+
+' Principal App y Widgets
+package "App Core" {
+    class CompositeApp {
+        + Widget build()
+    }
+
+    class HomeScreen {
+        - Widget _buildHeroCard()
+        + Widget build()
+    }
+
+    class TransitionWrapper {
+        + Widget build()
+    }
+}
+
+' Screens y Pages
+package "Screens" {
+    class CourseScreen {
+        - Course course
+        + Widget build()
+    }
+
+    class NavigationScreen {
+        + Widget build()
+    }
+
+    package "Pattern Pages" {
+        class CompositePatternPage {
+            + Widget build()
+        }
+
+        class FactoryMethodPage {
+            + Widget build()
+        }
+
+        class ObserverPatternPage {
+            + Widget build()
+        }
+    }
+}
+
+' Widgets Reutilizables
+package "Widgets" {
+    class GlassCard {
+        - Widget child
+        + Widget build()
+    }
+
+    class CourseWidget {
+        - CourseComponent component
+        + Widget build()
+    }
+
+    class NavigationWidget {
+        - NavigationComponent component
+        + Widget build()
+    }
+
+    class AnimatedBackground {
+        + Widget build()
+    }
+}
+
+' Modelos del Patrón Composite
+package "Models/Course" {
+    interface CourseComponent {
+        + {abstract} String name
+        + {abstract} void display(int depth)
+    }
+
+    class Course {
+        - List<CourseComponent> _modules
+        + void add(CourseComponent)
+        + List<CourseComponent> modules
+    }
+
+    class CourseModule {
+        - List<CourseComponent> _children
+        + void add(CourseComponent)
+    }
+
+    class CourseItem {
+        + String name
+        + void display(int depth)
+    }
+}
+
+' Modelos del Patrón Navigation
+package "Models/Navigation" {
+    interface NavigationComponent {
+        + {abstract} String label
+        + {abstract} void display(int depth)
+    }
+
+    class NavigationGroup {
+        - List<NavigationComponent> _children
+        + void add(NavigationComponent)
+        + List<NavigationComponent> children
+    }
+
+    class NavigationItem {
+        + String label
+        + void display(int depth)
+    }
+}
+
+' Utilidades
+package "Utils" {
+    class SampleData {
+        + {static} Course buildSampleCourse()
+        + {static} NavigationGroup buildSampleMenu()
+    }
+
+    class AppTheme {
+        + {static} ThemeData theme
+    }
+}
+
+' Relaciones de herencia/implementación
+CourseComponent <|.. Course
+CourseComponent <|.. CourseModule
+CourseComponent <|.. CourseItem
+
+NavigationComponent <|.. NavigationGroup
+NavigationComponent <|.. NavigationItem
+
+' Relaciones de composición/agregación
+Course o--> "0..*" CourseComponent
+CourseModule o--> "0..*" CourseComponent
+NavigationGroup o--> "0..*" NavigationComponent
+
+' Relaciones de uso
+HomeScreen ..> CourseScreen : navigates to
+HomeScreen ..> NavigationScreen : navigates to
+CourseScreen --> CourseWidget : uses
+NavigationScreen --> NavigationWidget : uses
+CourseWidget --> CourseComponent : displays
+NavigationWidget --> NavigationComponent : displays
+
+CompositeApp --> HomeScreen : shows
+HomeScreen --> GlassCard : uses
+HomeScreen --> AnimatedBackground : uses
+
+SampleData ..> Course : creates
+SampleData ..> NavigationGroup : creates
+
+CompositePatternPage --> CourseComponent : demonstrates
+FactoryMethodPage --> "Factory Method Pattern" : demonstrates
+ObserverPatternPage --> "Observer Pattern" : demonstrates
+
+@enduml
