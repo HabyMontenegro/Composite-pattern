@@ -82,11 +82,16 @@ https://code.visualstudio.com/
 -- Dart
 -- Awesome Flutter Snippets
 
-- Abrir una terminal en la raiz del proyecto y ejecuta:
- flutter pub get
+## Configuración Inicial
+En la raíz del proyecto (la carpeta donde está el archivo pubspec.yaml), ejecuta:
+ 
+flutter pub get
 
-## Ejecutar
-Abre una terminal en la raiz del proyecto y ejcuta:
- Flutter run
+Esto descargará todas las dependencias necesarias.
 
-Y escoge donde quieres que se ejecute.
+
+## Ejecuta:
+1. Abre una terminal en la raíz del proyecto.
+2. Ejecuta:
+ - flutter run
+3. Selecciona el dispositivo donde quieras ejecutar la app (por ejemplo, Chrome, Edge, o un emulador Android).
