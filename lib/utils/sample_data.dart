@@ -16,6 +16,7 @@ class SampleData {
     module2.add(CourseItem("Factory Method"));
     module2.add(CourseItem("Composite Pattern"));
     module2.add(CourseItem("Abstract Pattern"));
+    module2.add(CourseItem("Observer Pattern"));
 
     // Módulo 3 con submódulos
     final module3 = CourseModule("3. Prácticas avanzadas");

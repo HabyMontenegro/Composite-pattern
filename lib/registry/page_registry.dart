@@ -1,3 +1,5 @@
+import 'package:composite_menu_app/screens/pages/CompositePatternPage.dart';
+import 'package:composite_menu_app/screens/pages/ObserverPatternPage.dart';
 import 'package:composite_menu_app/screens/pages/default_course_page.dart';
 import 'package:composite_menu_app/screens/pages/factory_method_page.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +10,9 @@ typedef PageBuilder = Widget Function(CourseComponent component);
 class PageRegistry {
   static final Map<String, PageBuilder> _pages = {
     "Factory Method": (_) => const FactoryMethodPage(),
-    //"Composite Pattern": (_) => const CompositePatternPage(),
+    "Composite Pattern": (_) => const CompositePatternPage(),
     //"Abstract Pattern": (_) => const AbstractPatternPage(),
+    "Observer Pattern": (_) => const ObserverPatternPage(),
   };
 
   static Widget getPageFor(CourseComponent component) {
