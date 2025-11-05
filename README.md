@@ -78,9 +78,9 @@ https://code.visualstudio.com/
 
 - Instalar las siguientes extensiones en VS Code:
 
-Flutter (de Dart Code)
-Dart
-Awesome Flutter Snippets
+-- Flutter (de Dart Code)
+-- Dart
+-- Awesome Flutter Snippets
 
 - Abrir una terminal en la raiz del proyecto y ejecuta:
  flutter pub get
