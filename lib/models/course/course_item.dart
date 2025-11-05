@@ -1,6 +1,6 @@
 import 'course_component.dart';
 
-class CourseItem implements CourseComponent {
+class CourseItem extends CourseComponent {
   final String name;
 
   CourseItem(this.name);

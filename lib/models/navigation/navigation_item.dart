@@ -1,6 +1,6 @@
 import 'navigation_component.dart';
 
-class NavigationItem implements NavigationComponent {
+class NavigationItem extends NavigationComponent {
   final String label;
 
   NavigationItem(this.label);

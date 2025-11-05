@@ -1,8 +1,6 @@
+import 'package:composite_menu_app/registry/page_registry.dart';
 import 'package:flutter/material.dart';
 import '../models/course/course_component.dart';
-import '../models/course/course.dart';
-import '../models/course/course_module.dart';
-import '../models/course/course_item.dart';
 
 class CourseWidget extends StatelessWidget {
   final CourseComponent component;
@@ -10,35 +8,18 @@ class CourseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // === Nivel 1: Curso ===
-    if (component is Course) {
-      final course = component as Course;
+    // Use the uniform API: if the component has children -> composite, else -> leaf
+    if (component.children.isNotEmpty) {
       return _buildGroupCard(
-        title: course.name,
-        children: course.modules,
+        title: component.name,
+        children: component.children,
         context: context,
         color: Colors.indigoAccent,
       );
     }
 
-    // === Nivel 2: Módulo ===
-    else if (component is CourseModule) {
-      final module = component as CourseModule;
-      return _buildGroupCard(
-        title: module.name,
-        children: module.children,
-        context: context,
-        color: Colors.tealAccent.shade700,
-      );
-    }
-
-    // === Nivel 3: Lección (hoja final) ===
-    else if (component is CourseItem) {
-      final item = component as CourseItem;
-      return _buildAnimatedItem(context, item);
-    }
-
-    return const SizedBox.shrink();
+    // Leaf
+    return _buildAnimatedItem(context, component);
   }
 
   Widget _buildGroupCard({
@@ -51,10 +32,7 @@ class CourseWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            color.withOpacity(0.15),
-            Colors.black.withOpacity(0.4),
-          ],
+          colors: [color.withOpacity(0.15), Colors.black.withOpacity(0.4)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -77,7 +55,9 @@ class CourseWidget extends StatelessWidget {
             width: 44,
             height: 44,
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [color.withOpacity(0.9), color.withOpacity(0.6)]),
+              gradient: LinearGradient(
+                colors: [color.withOpacity(0.9), color.withOpacity(0.6)],
+              ),
               borderRadius: BorderRadius.circular(12),
             ),
             child: const Icon(Icons.folder, color: Colors.white),
@@ -97,7 +77,7 @@ class CourseWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildAnimatedItem(BuildContext context, CourseItem item) {
+  Widget _buildAnimatedItem(BuildContext context, CourseComponent item) {
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: 1),
       duration: const Duration(milliseconds: 500),
@@ -126,21 +106,22 @@ class CourseWidget extends StatelessWidget {
               color: Colors.orange.withOpacity(0.2),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Icon(Icons.play_arrow_rounded, color: Colors.amberAccent),
+            child: const Icon(
+              Icons.play_arrow_rounded,
+              color: Colors.amberAccent,
+            ),
           ),
           title: Text(
             item.name,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           trailing: const Icon(Icons.chevron_right, color: Colors.white38),
           onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Abrir: ${item.name}'),
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: Colors.indigo.withOpacity(0.9),
-              ),
-            );
+            final page = PageRegistry.getPageFor(item);
+            Navigator.push(context, MaterialPageRoute(builder: (_) => page));
           },
         ),
       ),
