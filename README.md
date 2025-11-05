@@ -64,3 +64,29 @@ Dónde mirar primero en el código para entenderlo rápido:
 - `lib/models/course/` y `lib/models/navigation/` para ver la implementación del patrón.
 - `lib/utils/sample_data.dart` para ver ejemplos concretos de árboles.
 - `lib/widgets/*_widget.dart` y `lib/screens/*_screen.dart` para ver cómo se renderiza la estructura.
+
+
+# Guía para ejecutar la aplicación
+
+## Requisitos
+
+- Descargar Flutter SDK y agregarlo al PATH:
+https://docs.flutter.dev/get-started/custom
+
+- Descargar VS Code:
+https://code.visualstudio.com/
+
+- Instalar las siguientes extensiones en VS Code:
+
+Flutter (de Dart Code)
+Dart
+Awesome Flutter Snippets
+
+- Abrir una terminal en la raiz del proyecto y ejecuta:
+ flutter pub get
+
+## Ejecutar
+Abre una terminal en la raiz del proyecto y ejcuta:
+ Flutter run
+
+Y escoge donde quieres que se ejecute.

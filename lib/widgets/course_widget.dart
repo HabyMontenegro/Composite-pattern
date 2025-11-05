@@ -18,7 +18,6 @@ class CourseWidget extends StatelessWidget {
       );
     }
 
-    // Leaf
     return _buildAnimatedItem(context, component);
   }
 
